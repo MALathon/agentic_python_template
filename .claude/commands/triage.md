@@ -93,6 +93,54 @@ For focused work:
 - Monitoring/logging setup needed
 - Security scanning required
 
+**Project Manager Agent** - Launch when:
+- Project planning required
+- Timeline creation needed
+- Resource allocation decisions
+- Risk management needed
+- Stakeholder coordination required
+- Progress tracking needed
+
+**Product Manager Agent** - Launch when:
+- Product strategy needed
+- Feature prioritization required
+- Market analysis needed
+- User requirements gathering
+- Roadmap planning
+- Success metrics definition
+
+**Portfolio Manager Agent** - Launch when:
+- Multiple projects need coordination
+- Resource conflicts arise
+- Investment decisions needed
+- Strategic alignment required
+- Cross-project dependencies
+- Executive reporting
+
+**Research Team Agent** - Launch when:
+- Technology evaluation needed
+- Competitive analysis required
+- Best practices research
+- Market trends analysis
+- Innovation scouting
+- Technical feasibility studies
+
+**UX Agent** - Launch when:
+- User interface design needed
+- User research required
+- Usability testing planned
+- Design system creation
+- Accessibility review
+- User journey mapping
+
+**Customer Voice Agent** - Launch when:
+- User feedback needed
+- Feature validation required
+- User interviews planned
+- Success metrics validation
+- User acceptance testing
+- Community engagement
+
 ### Orchestration Workflow
 
 When orchestrating a task, use the Bash tool to spawn agents:
@@ -169,6 +217,11 @@ For ML projects:
 [Use Bash tool]: ./scripts/orchestrate.sh ml-workflow "recommendation model"
 ```
 
+For product development:
+```bash
+[Use Bash tool]: ./scripts/orchestrate.sh product-workflow "new SaaS platform"
+```
+
 ## Intelligent Orchestration Decision Tree
 
 When receiving a request, follow this decision process:
@@ -210,6 +263,21 @@ When receiving a request, follow this decision process:
 **Request**: "Set up monitoring for production"
 ```bash
 [Use Bash tool]: ./scripts/orchestrate.sh parallel "devops:setup Prometheus,developer:add metrics endpoints,documentation:write monitoring guide"
+```
+
+**Request**: "Launch new product feature"
+```bash
+[Use Bash tool]: ./scripts/orchestrate.sh custom "product:define requirements,customer:validate concept,ux:design interface,architect:system design,developer:implement,tester:validate,devops:deploy"
+```
+
+**Request**: "Research and implement new technology"
+```bash
+[Use Bash tool]: ./scripts/orchestrate.sh custom "research:evaluate technology options,architect:design integration,project:plan implementation,developer:build prototype,portfolio:assess impact"
+```
+
+**Request**: "Improve user experience"
+```bash
+[Use Bash tool]: ./scripts/orchestrate.sh custom "customer:gather feedback,ux:analyze and design improvements,product:prioritize changes,developer:implement,customer:validate changes"
 ```
 
 ## Taskboard Coordination

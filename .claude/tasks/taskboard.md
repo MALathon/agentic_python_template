@@ -71,4 +71,10 @@ When adding tasks, use this format:
 - **@documentation**: Documentation and QA verification tasks
 - **@mlops**: ML infrastructure and operations tasks
 - **@devops**: CI/CD, deployment, and infrastructure tasks
+- **@project**: Project planning and management tasks
+- **@product**: Product strategy and requirements tasks
+- **@portfolio**: Multi-project oversight and resource allocation
+- **@research**: Technology research and competitive analysis
+- **@ux**: User experience design and research tasks
+- **@customer**: User feedback and validation tasks
 - **@triage**: Coordination and planning tasks
