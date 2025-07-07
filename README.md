@@ -1,10 +1,17 @@
 # Python Multi-Agent Development Template
 
-A clean, reusable Python project template designed for multi-agent development workflows using Claude AI agents.
+A comprehensive ecosystem of 13 specialized AI agents covering the entire product development lifecycle - from strategy and user research to implementation and deployment.
 
 ## Overview
 
-This template provides a structured approach to Python development using specialized AI agents for different aspects of the development lifecycle. Each agent has a specific role and expertise, enabling efficient collaboration and high-quality code production.
+This template provides a complete product development platform using specialized Claude AI agents. Whether you're building a startup MVP, enterprise software, or ML systems, the agents work together to handle every aspect from ideation to production.
+
+**Key Features:**
+- 🤖 **13 Specialized Agents** - Complete coverage of product development
+- 🔄 **Dynamic Orchestration** - Mix and match agents for any task
+- 🎯 **Intelligent Routing** - Automatic agent selection based on needs
+- 📋 **Built-in Workflows** - Pre-configured for common scenarios
+- 🚀 **Headless Automation** - Agents can spawn other agents as needed
 
 ## Project Structure
 
@@ -25,61 +32,151 @@ This template provides a structured approach to Python development using special
 
 ## Agents
 
-This template includes six specialized agents:
+This template includes **13 specialized agents** covering the entire product development lifecycle:
 
-### 1. Architect Agent
+### Development & Technical Agents
+
+#### 1. Architect Agent
 - **Role**: System design and architecture decisions
 - **Launch**: `./scripts/launch-architect.sh`
-- **Responsibilities**: 
-  - Design system architecture
-  - Make technology choices
-  - Define component interfaces
-  - Create architectural documentation
+- **Command**: `/architect`
 
-### 2. Developer Agent
-- **Role**: Code implementation
+#### 2. Developer Agent
+- **Role**: Code implementation with TDD
 - **Launch**: `./scripts/launch-developer.sh`
-- **Responsibilities**:
-  - Implement features
-  - Write clean, maintainable code
-  - Follow architectural guidelines
-  - Create unit tests
+- **Command**: `/developer`
 
-### 3. Tester Agent
+#### 3. Tester Agent
 - **Role**: Quality assurance and testing
 - **Launch**: `./scripts/launch-tester.sh`
-- **Responsibilities**:
-  - Write comprehensive tests
-  - Perform test coverage analysis
-  - Identify edge cases
-  - Ensure code quality
+- **Command**: `/tester`
 
-### 4. Reviewer Agent
-- **Role**: Code review and best practices
+#### 4. Reviewer Agent
+- **Role**: Code review and quality standards
 - **Launch**: `./scripts/launch-reviewer.sh`
-- **Responsibilities**:
-  - Review code quality
-  - Ensure best practices
-  - Check for security issues
-  - Suggest improvements
+- **Command**: `/reviewer`
 
-### 5. Triage Agent
-- **Role**: Issue management and prioritization
+### Operations & Infrastructure Agents
+
+#### 5. DevOps Agent
+- **Role**: CI/CD, deployment, and infrastructure
+- **Launch**: `./scripts/launch-devops.sh`
+- **Command**: `/devops`
+
+#### 6. MLOps Agent
+- **Role**: ML infrastructure and model deployment
+- **Launch**: `./scripts/launch-mlops.sh`
+- **Command**: `/mlops`
+
+### Product & Strategy Agents
+
+#### 7. Product Manager Agent
+- **Role**: Product strategy, roadmap, and requirements
+- **Launch**: `./scripts/launch-product.sh`
+- **Command**: `/product`
+
+#### 8. Project Manager Agent
+- **Role**: Project planning, timelines, and resources
+- **Launch**: `./scripts/launch-project.sh`
+- **Command**: `/project`
+
+#### 9. Portfolio Manager Agent
+- **Role**: Multi-project oversight and investment decisions
+- **Launch**: `./scripts/launch-portfolio.sh`
+- **Command**: `/portfolio`
+
+### User Experience & Research Agents
+
+#### 10. UX Agent
+- **Role**: UI/UX design and user research
+- **Launch**: `./scripts/launch-ux.sh`
+- **Command**: `/ux`
+
+#### 11. Customer Voice Agent
+- **Role**: User feedback and validation
+- **Launch**: `./scripts/launch-customer.sh`
+- **Command**: `/customer`
+
+#### 12. Research Team Agent
+- **Role**: Technology research and competitive analysis
+- **Launch**: `./scripts/launch-research.sh`
+- **Command**: `/research`
+
+### Coordination Agent
+
+#### 13. Triage Agent
+- **Role**: Task orchestration and intelligent routing
 - **Launch**: `./scripts/launch-triage.sh`
-- **Responsibilities**:
-  - Categorize issues
-  - Prioritize tasks
-  - Assign to appropriate agents
-  - Track progress
+- **Command**: `/triage`
 
-### 6. Task Agent
-- **Role**: Task breakdown and management
-- **Launch**: `claude code --task "your task description"`
-- **Responsibilities**:
-  - Break down complex tasks
-  - Create actionable subtasks
-  - Coordinate between agents
-  - Track completion
+## Dynamic Agent Orchestration
+
+The template includes powerful orchestration capabilities for combining agents:
+
+### Analyze Request
+```bash
+# Analyze any request to get agent recommendations
+./scripts/orchestrate.sh analyze "build a user-friendly dashboard with real-time data"
+```
+
+### Pre-built Workflows
+
+#### Standard Development Workflow
+```bash
+./scripts/orchestrate.sh workflow "user authentication feature"
+```
+
+#### Product Development Workflow
+```bash
+./scripts/orchestrate.sh product-workflow "new SaaS platform"
+```
+
+#### ML Project Workflow
+```bash
+./scripts/orchestrate.sh ml-workflow "recommendation engine"
+```
+
+#### Deployment Workflow
+```bash
+./scripts/orchestrate.sh deployment-workflow "my-app"
+```
+
+### Custom Agent Combinations
+
+#### Parallel Execution
+```bash
+# Run multiple agents simultaneously
+./scripts/orchestrate.sh parallel "ux:design mockups,developer:setup project,devops:prepare infrastructure"
+```
+
+#### Sequential Execution
+```bash
+# Run agents in order with dependencies
+./scripts/orchestrate.sh sequence "architect:design system,developer:implement,tester:validate"
+```
+
+#### Custom Orchestration
+```bash
+# Define your own agent combination
+./scripts/orchestrate.sh custom "customer:gather feedback,product:prioritize,ux:design,developer:implement,customer:validate"
+```
+
+### Example Orchestrations
+
+**Full Product Launch:**
+```bash
+./scripts/orchestrate.sh custom "product:define vision,research:market analysis,ux:user research,architect:system design,project:create plan,developer:build MVP,tester:validate,devops:deploy,customer:gather feedback"
+```
+
+**User Experience Improvement:**
+```bash
+./scripts/orchestrate.sh custom "customer:collect feedback,ux:analyze issues,research:competitor analysis,ux:redesign,developer:implement changes,tester:usability testing,customer:validate improvements"
+```
+
+**Technology Migration:**
+```bash
+./scripts/orchestrate.sh custom "research:evaluate options,portfolio:assess impact,architect:migration plan,project:timeline,developer:implement,tester:regression testing,devops:rollout strategy"
+```
 
 ## Getting Started
 
