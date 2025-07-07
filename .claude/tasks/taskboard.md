@@ -69,4 +69,5 @@ When adding tasks, use this format:
 - **@tester**: Testing and quality assurance tasks
 - **@reviewer**: Code review tasks
 - **@documentation**: Documentation and QA verification tasks
+- **@mlops**: ML infrastructure and operations tasks
 - **@triage**: Coordination and planning tasks

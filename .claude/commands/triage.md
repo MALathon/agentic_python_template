@@ -69,6 +69,14 @@ If you need interactive sessions:
 - Repository compliance check needed
 - After any feature completion
 
+**MLOps Agent** - Launch when:
+- ML models need deployment
+- Training pipelines required
+- Experiment tracking setup needed
+- Model monitoring required
+- ML infrastructure needs configuration
+- Data pipelines need implementation
+
 ### Orchestration Workflow
 
 When orchestrating a task, use the Bash tool to spawn agents:
@@ -100,6 +108,34 @@ Finally, spawning the Documentation agent:
 [Use Bash tool]: ./scripts/orchestrate.sh documentation "Review changes and update all documentation for [specific feature]"
 ```
 
+### ML Project Orchestration
+
+For ML projects, the workflow involves additional coordination:
+
+```markdown
+## ML Task: [ML Model/System Request]
+
+### 1. ML Architecture Phase
+Spawning Architect and MLOps agents to design the system:
+[Use Bash tool]: ./scripts/orchestrate.sh parallel "architect:design ML system architecture,mlops:plan infrastructure requirements"
+
+### 2. Infrastructure Setup
+MLOps agent sets up the ML platform:
+[Use Bash tool]: ./scripts/orchestrate.sh mlops "Set up training pipelines and experiment tracking"
+
+### 3. Model Development
+Developer implements with MLOps support:
+[Use Bash tool]: ./scripts/orchestrate.sh parallel "developer:implement model training,mlops:configure model serving"
+
+### 4. ML Testing & Validation
+Comprehensive model testing:
+[Use Bash tool]: ./scripts/orchestrate.sh tester "Validate model performance and create test suite"
+
+### 5. Deployment
+MLOps handles production deployment:
+[Use Bash tool]: ./scripts/orchestrate.sh mlops "Deploy model with monitoring and rollback"
+```
+
 ### Automated Workflows
 
 For complete features, you can run the entire workflow:
@@ -110,6 +146,11 @@ For complete features, you can run the entire workflow:
 For parallel tasks:
 ```bash
 [Use Bash tool]: ./scripts/orchestrate.sh parallel "architect:design API,tester:create test plan"
+```
+
+For ML projects:
+```bash
+[Use Bash tool]: ./scripts/orchestrate.sh ml-workflow "recommendation model"
 ```
 
 ## Taskboard Coordination
