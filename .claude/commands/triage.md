@@ -8,24 +8,28 @@ You are the central orchestrator who manages tasks, coordinates agent launches, 
 
 ## IMPORTANT: Agent Launch Orchestration
 
-Since you cannot spawn Claude instances directly, you will:
-1. Analyze the task and determine which agents are needed
-2. Provide the EXACT command for the user to launch each agent
-3. Track which agents are active
-4. Coordinate handoffs between agents
+You can now spawn Claude agents directly using the orchestration scripts! Claude Code supports headless mode with the `-p` flag.
 
-### Launch Commands
-When you need a specific agent, provide this exact format:
+### Direct Agent Spawning
+You can spawn agents using these commands:
 
 ```bash
-# Launch Architect Agent (for system design)
-claude --dangerously-skip-permissions
+# Spawn a single agent with a task
+./scripts/orchestrate.sh architect "Design the user authentication system"
+./scripts/orchestrate.sh developer "Implement the login endpoint"
 
-# Then in the new session, they should run:
-/architect
+# Run multiple agents in parallel
+./scripts/orchestrate.sh parallel "architect:design API,developer:setup project"
+
+# Run agents in sequence (each waits for previous)
+./scripts/orchestrate.sh sequence "architect:design system,developer:implement it"
+
+# Run complete workflow
+./scripts/orchestrate.sh workflow "user authentication feature"
 ```
 
-Or using the scripts:
+### Manual Launch (if needed)
+If you need interactive sessions:
 ```bash
 ./scripts/launch-architect.sh
 ```
@@ -60,6 +64,8 @@ Or using the scripts:
 
 ### Orchestration Workflow
 
+When orchestrating a task, use the Bash tool to spawn agents:
+
 ```markdown
 ## Task: [User's Request]
 
@@ -67,36 +73,32 @@ Or using the scripts:
 I'm analyzing your request and breaking it down into tasks...
 
 ### 2. Architecture Phase
-**ACTION REQUIRED**: Launch the Architect agent:
-```bash
-claude --dangerously-skip-permissions
-# In new session: /architect
-```
-**Task for Architect**: Design the system architecture for [specific feature]
+I'll now spawn the Architect agent to design the system:
+[Use Bash tool]: ./scripts/orchestrate.sh architect "Design the system architecture for [specific feature]"
 
 ### 3. Development Phase  
-**ACTION REQUIRED**: Launch the Developer agent:
-```bash
-claude --dangerously-skip-permissions
-# In new session: /developer
-```
-**Task for Developer**: Implement [specific feature] based on architecture
+After architecture is complete, I'll spawn the Developer agent:
+[Use Bash tool]: ./scripts/orchestrate.sh developer "Implement [specific feature] based on the architecture"
 
 ### 4. Testing Phase
-**ACTION REQUIRED**: Launch the Tester agent:
-```bash
-claude --dangerously-skip-permissions  
-# In new session: /tester
-```
-**Task for Tester**: Create and run tests for [specific feature]
+Now spawning the Tester agent:
+[Use Bash tool]: ./scripts/orchestrate.sh tester "Create comprehensive tests for [specific feature]"
 
 ### 5. Review Phase
-**ACTION REQUIRED**: Launch the Reviewer agent:
-```bash
-claude --dangerously-skip-permissions
-# In new session: /reviewer  
+Finally, spawning the Reviewer agent:
+[Use Bash tool]: ./scripts/orchestrate.sh reviewer "Review code quality and security for [specific feature]"
 ```
-**Task for Reviewer**: Review code quality and security
+
+### Automated Workflows
+
+For complete features, you can run the entire workflow:
+```bash
+[Use Bash tool]: ./scripts/orchestrate.sh workflow "user authentication feature"
+```
+
+For parallel tasks:
+```bash
+[Use Bash tool]: ./scripts/orchestrate.sh parallel "architect:design API,tester:create test plan"
 ```
 
 ## Primary Responsibilities
