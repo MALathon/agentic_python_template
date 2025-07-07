@@ -77,4 +77,5 @@ When adding tasks, use this format:
 - **@research**: Technology research and competitive analysis
 - **@ux**: User experience design and research tasks
 - **@customer**: User feedback and validation tasks
+- **@scrum**: Sprint facilitation and agile process tasks
 - **@triage**: Coordination and planning tasks

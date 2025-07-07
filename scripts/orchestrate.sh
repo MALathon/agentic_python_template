@@ -72,6 +72,11 @@ case "$ACTION" in
         claude -p "You are the Customer Voice Agent. First run /customer to load your role. IMPORTANT: Update the taskboard at .claude/tasks/taskboard.md to show your task status. Then complete: $*" --verbose
         ;;
     
+    "scrum")
+        echo "🏃 Spawning Scrum Master Agent..."
+        claude -p "You are the Scrum Master Agent. First run /scrum to load your role. IMPORTANT: Update the taskboard at .claude/tasks/taskboard.md to show your task status. Then complete: $*" --verbose
+        ;;
+    
     "parallel")
         # Launch multiple agents in parallel
         echo "🚀 Launching agents in parallel..."
@@ -229,7 +234,7 @@ case "$ACTION" in
             echo "▶️  Spawning $agent for: $task_desc"
             
             case $agent in
-                "architect"|"developer"|"tester"|"reviewer"|"documentation"|"mlops"|"devops"|"project"|"product"|"portfolio"|"research"|"ux"|"customer")
+                "architect"|"developer"|"tester"|"reviewer"|"documentation"|"mlops"|"devops"|"project"|"product"|"portfolio"|"research"|"ux"|"customer"|"scrum")
                     claude -p "You are the ${agent^} Agent. First run /$agent to load your role. Update the taskboard. Then: $task_desc" --verbose
                     ;;
                 *)
@@ -359,7 +364,12 @@ case "$ACTION" in
             echo "- Documentation Agent: For documentation"
         fi
         
+        if [[ $REQUEST == *"sprint"* ]] || [[ $REQUEST == *"scrum"* ]] || [[ $REQUEST == *"agile"* ]] || [[ $REQUEST == *"standup"* ]]; then
+            echo "- Scrum Master: For agile facilitation"
+        fi
+        
         echo ""
+        echo "Consider using './scripts/meeting.sh' for collaborative decisions"
         echo "Use 'custom' command to execute this combination"
         ;;
     
@@ -380,6 +390,7 @@ case "$ACTION" in
         echo "  research <task>      - Spawn research team agent with task"
         echo "  ux <task>            - Spawn UX agent with task"
         echo "  customer <task>      - Spawn customer voice agent with task"
+        echo "  scrum <task>         - Spawn scrum master agent with task"
         echo "  parallel <tasks>     - Run multiple agents in parallel"
         echo "  sequence <tasks>     - Run agents in sequence"
         echo "  workflow <feature>   - Run standard dev workflow"
