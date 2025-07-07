@@ -117,9 +117,9 @@ case "$ACTION" in
         ;;
     
     "workflow")
-        # Execute a complete workflow
+        # Execute a complete workflow with quality gates
         FEATURE=$1
-        echo "🔄 Executing complete workflow for: $FEATURE"
+        echo "🔄 Executing complete workflow with quality gates for: $FEATURE"
         
         # Create initial task on taskboard
         echo "📋 Creating workflow tasks on taskboard..."
@@ -128,23 +128,49 @@ case "$ACTION" in
         echo "1️⃣ Architecture Phase"
         claude -p "You are the Architect Agent. First run /architect to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Design the architecture for $FEATURE" --verbose
         
+        # QUALITY GATE: Architecture Review
+        echo "🔍 Quality Gate: Architecture Review"
+        claude -p "You are the Reviewer Agent. First run /reviewer to load your role. Then: Review the architecture design for $FEATURE and identify any issues" --verbose
+        
+        # Test Planning (parallel with development)
+        echo "2️⃣ Test Planning Phase (parallel)"
+        claude -p "You are the Tester Agent. First run /tester to load your role. Update the taskboard. Then: Create test plan and test cases for $FEATURE based on architecture" --verbose &
+        
         # Development phase
-        echo "2️⃣ Development Phase"
+        echo "3️⃣ Development Phase"
         claude -p "You are the Developer Agent. First run /developer to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Implement $FEATURE based on the architecture" --verbose
         
-        # Testing phase
-        echo "3️⃣ Testing Phase"
-        claude -p "You are the Tester Agent. First run /tester to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Create comprehensive tests for $FEATURE" --verbose
+        wait # Wait for test planning to complete
         
-        # Review phase
-        echo "4️⃣ Review Phase"
-        claude -p "You are the Reviewer Agent. First run /reviewer to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Review the implementation and tests for $FEATURE" --verbose
+        # QUALITY GATE: Code Review Round 1
+        echo "🔍 Quality Gate: Initial Code Review"
+        claude -p "You are the Reviewer Agent. First run /reviewer to load your role. Then: Review the implementation for code quality, patterns, and potential issues in $FEATURE" --verbose
+        
+        # Testing phase
+        echo "4️⃣ Testing Phase"
+        claude -p "You are the Tester Agent. First run /tester to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Execute comprehensive tests for $FEATURE" --verbose
+        
+        # QUALITY GATE: Test Results Review
+        echo "🔍 Quality Gate: Test Results Review"
+        claude -p "You are the Reviewer Agent. First run /reviewer to load your role. Then: Review test results and coverage for $FEATURE" --verbose
+        
+        # Fix any issues found
+        echo "5️⃣ Issue Resolution Phase"
+        claude -p "You are the Developer Agent. First run /developer to load your role. Then: Fix any issues identified by tests and reviews for $FEATURE" --verbose
+        
+        # Final Review phase
+        echo "6️⃣ Final Review Phase"
+        claude -p "You are the Reviewer Agent. First run /reviewer to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Perform final review including security and performance for $FEATURE" --verbose
         
         # Documentation phase
-        echo "5️⃣ Documentation Phase"
+        echo "7️⃣ Documentation Phase"
         claude -p "You are the Documentation Agent. First run /documentation to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Review all changes and update documentation for $FEATURE" --verbose
         
-        echo "✅ Workflow completed for: $FEATURE"
+        # QUALITY GATE: Documentation Review
+        echo "🔍 Quality Gate: Documentation Review"
+        claude -p "You are the Reviewer Agent. First run /reviewer to load your role. Then: Verify documentation is complete and accurate for $FEATURE" --verbose
+        
+        echo "✅ Workflow completed with all quality gates for: $FEATURE"
         ;;
     
     "ml-workflow")
@@ -190,6 +216,9 @@ case "$ACTION" in
         echo ""
         echo "Suggested agent orchestration:"
         
+        # Always include reviewer for quality
+        echo "- Reviewer Agent: For continuous quality checks (ALWAYS)"
+        
         # Keywords for agent selection
         if [[ $REQUEST == *"deploy"* ]] || [[ $REQUEST == *"CI/CD"* ]] || [[ $REQUEST == *"Docker"* ]]; then
             echo "- DevOps Agent: For deployment and infrastructure"
@@ -216,7 +245,17 @@ case "$ACTION" in
         fi
         
         echo ""
-        echo "Use 'custom' command to execute this combination"
+        echo "Recommended workflow:"
+        echo "1. Initial design/planning"
+        echo "2. Review checkpoint"
+        echo "3. Implementation"
+        echo "4. Testing & review"
+        echo "5. Fix issues"
+        echo "6. Final review"
+        echo "7. Documentation"
+        echo ""
+        echo "Use 'adaptive' workflow for dynamic adjustment based on reviews"
+        echo "Use 'custom' command for specific orchestration"
         ;;
     
     "custom")
@@ -300,9 +339,21 @@ case "$ACTION" in
         claude -p "You are the Developer Agent. First run /developer to load your role. Update the taskboard. Then: Implement core features of $PRODUCT" --verbose
         claude -p "You are the Tester Agent. First run /tester to load your role. Update the taskboard. Then: Create comprehensive test suite for $PRODUCT" --verbose
         
+        # Review & Quality Gate
+        echo "5️⃣ Product Review & Quality Gate"
+        claude -p "You are the Reviewer Agent. First run /reviewer to load your role. Update the taskboard. Then: Review all aspects of $PRODUCT including code, UX, and product-market fit" --verbose
+        
+        # Fix any issues found in review
+        echo "6️⃣ Issue Resolution"
+        claude -p "You are the Developer Agent. First run /developer to load your role. Then: Address any issues found in the product review for $PRODUCT" --verbose
+        
         # Deployment & Launch
-        echo "5️⃣ Deployment & Launch"
+        echo "7️⃣ Deployment & Launch"
         claude -p "You are the DevOps Agent. First run /devops to load your role. Update the taskboard. Then: Deploy $PRODUCT to production" --verbose
+        
+        # Final Review
+        echo "8️⃣ Final Review & Documentation"
+        claude -p "You are the Reviewer Agent. First run /reviewer to load your role. Then: Perform final production readiness review for $PRODUCT" --verbose
         claude -p "You are the Documentation Agent. First run /documentation to load your role. Update the taskboard. Then: Create user and technical documentation for $PRODUCT" --verbose
         
         echo "✅ Product development workflow completed for: $PRODUCT"
@@ -393,12 +444,16 @@ case "$ACTION" in
         echo "  scrum <task>         - Spawn scrum master agent with task"
         echo "  parallel <tasks>     - Run multiple agents in parallel"
         echo "  sequence <tasks>     - Run agents in sequence"
-        echo "  workflow <feature>   - Run standard dev workflow"
+        echo "  workflow <feature>   - Run standard dev workflow with QA gates"
         echo "  ml-workflow <model>  - Run ML-specific workflow"
         echo "  deployment-workflow <app> - Run deployment workflow"
         echo "  product-workflow <product> - Run product dev workflow"
         echo "  analyze <request>    - Analyze and suggest agents"
         echo "  custom <tasks>       - Run custom agent combination"
+        echo ""
+        echo "For adaptive workflows with dynamic quality gates:"
+        echo "  ../scripts/adaptive-workflow.sh adaptive 'feature description'"
+        echo "  ../scripts/adaptive-workflow.sh continuous 'task description'"
         echo ""
         echo "Examples:"
         echo "  $0 architect 'Design user authentication system'"
