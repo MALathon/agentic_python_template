@@ -3,7 +3,13 @@
 ## Current Sprint
 
 ### In Progress
-_No tasks currently in progress_
+### [REV-TEST] Test taskboard update
+- **Priority**: P1
+- **Assigned**: @reviewer
+- **Created**: 2025-07-06
+- **Updated**: 2025-07-06
+- **Status**: Backlog
+
 
 ### Review
 _No tasks currently in review_
@@ -14,7 +20,12 @@ _No tasks currently in testing_
 ## Backlog
 
 ### High Priority (P1)
-_No high priority tasks_
+### [ARCH-001] Review repository architecture and design patterns
+- **Priority**: P1
+- **Assigned**: @architect
+- **Created**: 2025-07-06
+- **Updated**: 2025-07-06
+- **Status**: Backlog
 
 ### Medium Priority (P2)
 _No medium priority tasks_

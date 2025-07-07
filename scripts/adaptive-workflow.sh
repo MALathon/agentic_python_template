@@ -25,8 +25,8 @@ function quality_gate() {
     echo -e "\n${BLUE}🔍 Quality Gate: $gate_name${NC}"
     echo "Running: $check_command"
     
-    # Actually run the quality check command
-    if eval "$check_command"; then
+    # Actually run the quality check command (safely)
+    if bash -c "$check_command"; then
         echo -e "${GREEN}✅ $gate_name passed${NC}"
         return 0
     else

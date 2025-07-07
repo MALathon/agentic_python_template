@@ -1,15 +1,29 @@
-# Production Dependencies
-# Add your project-specific dependencies here
+# Core testing dependencies with pinned versions
+pytest==8.4.1
+pytest-cov==6.2.1
+pytest-asyncio==0.25.2
+pytest-mock==3.14.1
 
-# Example dependencies (remove/modify as needed):
-# fastapi>=0.104.0
-# uvicorn>=0.24.0
-# pydantic>=2.5.0
-# sqlalchemy>=2.0.0
-# alembic>=1.12.0
-# httpx>=0.25.0
-# python-jose[cryptography]>=3.3.0
-# passlib[bcrypt]>=1.7.4
-# python-multipart>=0.0.6
+# Code quality tools with pinned versions
+black==24.12.1
+isort==5.14.0
+flake8==7.0.0
+mypy==1.14.1
+pre-commit==4.0.1
 
-# For development dependencies, see requirements-dev.txt
+# Security scanning
+bandit==1.8.0
+safety==3.3.1
+
+# Documentation
+mkdocs==1.6.1
+mkdocs-material==9.6.17
+
+# Development tools
+ipython==8.32.0
+ipdb==0.14.0
+rich==13.12.0
+
+# Type stubs
+types-requests==2.32.0.20250106
+types-PyYAML==6.0.12.20240917
