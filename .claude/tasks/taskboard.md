@@ -70,4 +70,5 @@ When adding tasks, use this format:
 - **@reviewer**: Code review tasks
 - **@documentation**: Documentation and QA verification tasks
 - **@mlops**: ML infrastructure and operations tasks
+- **@devops**: CI/CD, deployment, and infrastructure tasks
 - **@triage**: Coordination and planning tasks

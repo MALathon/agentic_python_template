@@ -37,6 +37,11 @@ case "$ACTION" in
         claude -p "You are the MLOps Agent. First run /mlops to load your role. IMPORTANT: Update the taskboard at .claude/tasks/taskboard.md to show your task status. Then complete: $*" --verbose
         ;;
     
+    "devops")
+        echo "🚀 Spawning DevOps Agent..."
+        claude -p "You are the DevOps Agent. First run /devops to load your role. IMPORTANT: Update the taskboard at .claude/tasks/taskboard.md to show your task status. Then complete: $*" --verbose
+        ;;
+    
     "parallel")
         # Launch multiple agents in parallel
         echo "🚀 Launching agents in parallel..."
@@ -143,6 +148,98 @@ case "$ACTION" in
         echo "✅ ML workflow completed for: $MODEL"
         ;;
     
+    "analyze")
+        # Analyze request and suggest agent combination
+        REQUEST=$*
+        echo "🔍 Analyzing request: $REQUEST"
+        echo ""
+        echo "Suggested agent orchestration:"
+        
+        # Keywords for agent selection
+        if [[ $REQUEST == *"deploy"* ]] || [[ $REQUEST == *"CI/CD"* ]] || [[ $REQUEST == *"Docker"* ]]; then
+            echo "- DevOps Agent: For deployment and infrastructure"
+        fi
+        
+        if [[ $REQUEST == *"API"* ]] || [[ $REQUEST == *"design"* ]] || [[ $REQUEST == *"architect"* ]]; then
+            echo "- Architect Agent: For system design"
+        fi
+        
+        if [[ $REQUEST == *"implement"* ]] || [[ $REQUEST == *"code"* ]] || [[ $REQUEST == *"feature"* ]]; then
+            echo "- Developer Agent: For implementation"
+        fi
+        
+        if [[ $REQUEST == *"test"* ]] || [[ $REQUEST == *"quality"* ]] || [[ $REQUEST == *"validate"* ]]; then
+            echo "- Tester Agent: For quality assurance"
+        fi
+        
+        if [[ $REQUEST == *"model"* ]] || [[ $REQUEST == *"ML"* ]] || [[ $REQUEST == *"training"* ]]; then
+            echo "- MLOps Agent: For ML operations"
+        fi
+        
+        if [[ $REQUEST == *"document"* ]] || [[ $REQUEST == *"docs"* ]] || [[ $REQUEST == *"guide"* ]]; then
+            echo "- Documentation Agent: For documentation"
+        fi
+        
+        echo ""
+        echo "Use 'custom' command to execute this combination"
+        ;;
+    
+    "custom")
+        # Execute custom agent combination
+        # Format: ./orchestrate.sh custom "architect:design API,devops:setup deployment,developer:implement API"
+        TASKS=$1
+        echo "🎯 Executing custom agent orchestration"
+        echo "Tasks: $TASKS"
+        
+        IFS=',' read -ra TASK_LIST <<< "$TASKS"
+        
+        for task in "${TASK_LIST[@]}"; do
+            IFS=':' read -r agent task_desc <<< "$task"
+            echo ""
+            echo "▶️  Spawning $agent for: $task_desc"
+            
+            case $agent in
+                "architect"|"developer"|"tester"|"reviewer"|"documentation"|"mlops"|"devops")
+                    claude -p "You are the ${agent^} Agent. First run /$agent to load your role. Update the taskboard. Then: $task_desc" --verbose
+                    ;;
+                *)
+                    echo "Unknown agent: $agent"
+                    ;;
+            esac
+        done
+        
+        echo ""
+        echo "✅ Custom orchestration completed"
+        ;;
+    
+    "deployment-workflow")
+        # Complete deployment workflow
+        APP=$1
+        echo "🚀 Executing deployment workflow for: $APP"
+        
+        # Architecture review
+        echo "1️⃣ Architecture Review"
+        claude -p "You are the Architect Agent. First run /architect to load your role. Update the taskboard. Then: Review deployment architecture for $APP" --verbose
+        
+        # DevOps setup
+        echo "2️⃣ DevOps Infrastructure"
+        claude -p "You are the DevOps Agent. First run /devops to load your role. Update the taskboard. Then: Set up CI/CD pipeline and containerization for $APP" --verbose
+        
+        # Testing setup
+        echo "3️⃣ Test Automation"
+        claude -p "You are the Tester Agent. First run /tester to load your role. Update the taskboard. Then: Create deployment tests and smoke tests for $APP" --verbose
+        
+        # Deployment
+        echo "4️⃣ Deployment Execution"
+        claude -p "You are the DevOps Agent. First run /devops to load your role. Update the taskboard. Then: Deploy $APP to production with monitoring" --verbose
+        
+        # Documentation
+        echo "5️⃣ Deployment Documentation"
+        claude -p "You are the Documentation Agent. First run /documentation to load your role. Update the taskboard. Then: Create deployment guide and runbook for $APP" --verbose
+        
+        echo "✅ Deployment workflow completed for: $APP"
+        ;;
+    
     *)
         echo "Usage: $0 <action> [arguments]"
         echo ""
@@ -153,10 +250,14 @@ case "$ACTION" in
         echo "  reviewer <task>      - Spawn reviewer agent with task"
         echo "  documentation <task> - Spawn documentation agent with task"
         echo "  mlops <task>         - Spawn MLOps agent with task"
+        echo "  devops <task>        - Spawn DevOps agent with task"
         echo "  parallel <tasks>     - Run multiple agents in parallel"
         echo "  sequence <tasks>     - Run agents in sequence"
         echo "  workflow <feature>   - Run complete workflow"
         echo "  ml-workflow <model>  - Run ML-specific workflow"
+        echo "  deployment-workflow <app> - Run deployment workflow"
+        echo "  analyze <request>    - Analyze and suggest agents"
+        echo "  custom <tasks>       - Run custom agent combination"
         echo ""
         echo "Examples:"
         echo "  $0 architect 'Design user authentication system'"
