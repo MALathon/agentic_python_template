@@ -437,6 +437,26 @@ case "$ACTION" in
         echo "Use 'custom' command to execute this combination"
         ;;
     
+    "meeting")
+        # Run collaborative meeting
+        MEETING_TYPE=$1
+        TOPIC=$2
+        
+        if [ -z "$MEETING_TYPE" ] || [ -z "$TOPIC" ]; then
+            echo "Usage: $0 meeting <type> \"<topic>\""
+            echo "Types: planning, technical, product, retrospective, emergency, architecture, user-research"
+            exit 1
+        fi
+        
+        # Source and run meeting script functionality
+        if [ -f "./scripts/meeting.sh" ]; then
+            ./scripts/meeting.sh "$MEETING_TYPE" "$TOPIC"
+        else
+            echo "Error: meeting.sh not found"
+            exit 1
+        fi
+        ;;
+    
     *)
         echo "Usage: $0 <action> [arguments]"
         echo ""

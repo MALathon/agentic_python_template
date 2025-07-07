@@ -27,8 +27,8 @@ This template provides a complete multi-agent development environment where spec
    claude /triage "I need to build a REST API with authentication"
    
    # Or launch specific agents
-   ./scripts/launch-architect.sh
-   ./scripts/launch-developer.sh
+   ./scripts/launch-agent.sh architect
+   ./scripts/launch-agent.sh developer
    ```
 
 3. **For complex decisions**:
@@ -42,23 +42,23 @@ This template provides a complete multi-agent development environment where spec
 
 ## 🤖 Available Agents
 
-| Agent | Role | Launch Script |
-|-------|------|---------------|
+| Agent | Role | Launch Command |
+|-------|------|----------------|
 | **Triage** | Interprets requests & orchestrates | `claude /triage` |
-| **Architect** | System design & architecture | `./scripts/launch-architect.sh` |
-| **Developer** | Implementation & coding | `./scripts/launch-developer.sh` |
-| **Tester** | Quality assurance & testing | `./scripts/launch-tester.sh` |
-| **Reviewer** | Code review & security | `./scripts/launch-reviewer.sh` |
-| **Documentation** | Technical documentation | `./scripts/launch-documentation.sh` |
-| **MLOps** | ML infrastructure & operations | `./scripts/launch-mlops.sh` |
-| **DevOps** | CI/CD & deployment | `./scripts/launch-devops.sh` |
-| **Project Manager** | Planning & coordination | `./scripts/launch-project.sh` |
-| **Product Manager** | Strategy & requirements | `./scripts/launch-product.sh` |
-| **Portfolio Manager** | Multi-project oversight | `./scripts/launch-portfolio.sh` |
-| **Research Team** | Technology research | `./scripts/launch-research.sh` |
-| **UX** | User experience design | `./scripts/launch-ux.sh` |
-| **Customer Voice** | User feedback & validation | `./scripts/launch-customer.sh` |
-| **Scrum Master** | Agile facilitation | `./scripts/launch-scrum.sh` |
+| **Architect** | System design & architecture | `./scripts/launch-agent.sh architect` |
+| **Developer** | Implementation & coding | `./scripts/launch-agent.sh developer` |
+| **Tester** | Quality assurance & testing | `./scripts/launch-agent.sh tester` |
+| **Reviewer** | Code review & security | `./scripts/launch-agent.sh reviewer` |
+| **Documentation** | Technical documentation | `./scripts/launch-agent.sh documentation` |
+| **MLOps** | ML infrastructure & operations | `./scripts/launch-agent.sh mlops` |
+| **DevOps** | CI/CD & deployment | `./scripts/launch-agent.sh devops` |
+| **Project Manager** | Planning & coordination | `./scripts/launch-agent.sh project` |
+| **Product Manager** | Strategy & requirements | `./scripts/launch-agent.sh product` |
+| **Portfolio Manager** | Multi-project oversight | `./scripts/launch-agent.sh portfolio` |
+| **Research Team** | Technology research | `./scripts/launch-agent.sh research` |
+| **UX** | User experience design | `./scripts/launch-agent.sh ux` |
+| **Customer Voice** | User feedback & validation | `./scripts/launch-agent.sh customer` |
+| **Scrum Master** | Agile facilitation | `./scripts/launch-agent.sh scrum` |
 
 ## 🧪 Testing Strategy
 
