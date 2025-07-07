@@ -36,4 +36,7 @@ echo "  - 'Review and improve current architecture'"
 echo ""
 
 # Launch Claude with the architect command
-claude code --command architect
+echo "Starting Claude session..."
+echo "Run '/architect' after Claude starts"
+echo ""
+claude --dangerously-skip-permissions

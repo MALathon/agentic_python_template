@@ -46,4 +46,7 @@ echo "  - 'Review and update task progress'"
 echo ""
 
 # Launch Claude with the triage command
-claude code --command triage
+echo "Starting Claude session..."
+echo "Run '/triage' after Claude starts"
+echo ""
+claude --dangerously-skip-permissions

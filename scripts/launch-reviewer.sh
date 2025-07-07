@@ -43,4 +43,7 @@ echo "  - 'Review the entire codebase for consistency'"
 echo ""
 
 # Launch Claude with the reviewer command
-claude code --command reviewer
+echo "Starting Claude session..."
+echo "Run '/reviewer' after Claude starts"
+echo ""
+claude --dangerously-skip-permissions

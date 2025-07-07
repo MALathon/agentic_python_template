@@ -43,4 +43,7 @@ echo "  - 'Add caching to improve API response times'"
 echo ""
 
 # Launch Claude with the developer command
-claude code --command developer
+echo "Starting Claude session..."
+echo "Run '/developer' after Claude starts"
+echo ""
+claude --dangerously-skip-permissions

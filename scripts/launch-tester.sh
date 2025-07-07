@@ -44,4 +44,7 @@ echo "  - 'Set up performance tests for the data pipeline'"
 echo ""
 
 # Launch Claude with the tester command
-claude code --command tester
+echo "Starting Claude session..."
+echo "Run '/tester' after Claude starts"
+echo ""
+claude --dangerously-skip-permissions
