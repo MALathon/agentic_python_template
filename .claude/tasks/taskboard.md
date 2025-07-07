@@ -68,4 +68,5 @@ When adding tasks, use this format:
 - **@developer**: Implementation and coding tasks
 - **@tester**: Testing and quality assurance tasks
 - **@reviewer**: Code review tasks
+- **@documentation**: Documentation and QA verification tasks
 - **@triage**: Coordination and planning tasks

@@ -62,6 +62,13 @@ If you need interactive sessions:
 - Best practices check needed
 - Final quality gate
 
+**Documentation Agent** - Launch when:
+- Any code changes need documentation
+- Documentation audit required
+- Examples need verification
+- Repository compliance check needed
+- After any feature completion
+
 ### Orchestration Workflow
 
 When orchestrating a task, use the Bash tool to spawn agents:
@@ -85,8 +92,12 @@ Now spawning the Tester agent:
 [Use Bash tool]: ./scripts/orchestrate.sh tester "Create comprehensive tests for [specific feature]"
 
 ### 5. Review Phase
-Finally, spawning the Reviewer agent:
+Spawning the Reviewer agent:
 [Use Bash tool]: ./scripts/orchestrate.sh reviewer "Review code quality and security for [specific feature]"
+
+### 6. Documentation Phase
+Finally, spawning the Documentation agent:
+[Use Bash tool]: ./scripts/orchestrate.sh documentation "Review changes and update all documentation for [specific feature]"
 ```
 
 ### Automated Workflows
@@ -100,6 +111,26 @@ For parallel tasks:
 ```bash
 [Use Bash tool]: ./scripts/orchestrate.sh parallel "architect:design API,tester:create test plan"
 ```
+
+## Taskboard Coordination
+
+The taskboard at `.claude/tasks/taskboard.md` is the central coordination point for all agents:
+
+1. **Before spawning agents**: Create tasks on the taskboard
+2. **When spawning agents**: Include taskboard update instructions
+3. **Monitor progress**: Check taskboard regularly for status updates
+4. **Track completion**: Ensure agents move tasks to "Done"
+
+Example taskboard management:
+```bash
+# Check current taskboard status
+[Use Read tool]: cat .claude/tasks/taskboard.md
+
+# After reviewing, spawn agent with task
+[Use Bash tool]: ./scripts/orchestrate.sh developer "Implement user authentication - Task TASK-001"
+```
+
+All agents are instructed to update the taskboard when spawned, ensuring visibility across the entire workflow.
 
 ## Primary Responsibilities
 

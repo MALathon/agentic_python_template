@@ -9,22 +9,27 @@ shift  # Remove first argument to get remaining args
 case "$ACTION" in
     "architect")
         echo "🏛️  Spawning Architect Agent..."
-        claude -p "You are the Architect Agent. First run /architect to load your role, then: $*" --verbose
+        claude -p "You are the Architect Agent. First run /architect to load your role. IMPORTANT: Update the taskboard at .claude/tasks/taskboard.md to show your task status. Then complete: $*" --verbose
         ;;
     
     "developer")
         echo "💻 Spawning Developer Agent..."
-        claude -p "You are the Developer Agent. First run /developer to load your role, then: $*" --verbose
+        claude -p "You are the Developer Agent. First run /developer to load your role. IMPORTANT: Update the taskboard at .claude/tasks/taskboard.md to show your task status. Then complete: $*" --verbose
         ;;
     
     "tester")
         echo "🧪 Spawning Tester Agent..."
-        claude -p "You are the Tester Agent. First run /tester to load your role, then: $*" --verbose
+        claude -p "You are the Tester Agent. First run /tester to load your role. IMPORTANT: Update the taskboard at .claude/tasks/taskboard.md to show your task status. Then complete: $*" --verbose
         ;;
     
     "reviewer")
         echo "🔍 Spawning Reviewer Agent..."
-        claude -p "You are the Reviewer Agent. First run /reviewer to load your role, then: $*" --verbose
+        claude -p "You are the Reviewer Agent. First run /reviewer to load your role. IMPORTANT: Update the taskboard at .claude/tasks/taskboard.md to show your task status. Then complete: $*" --verbose
+        ;;
+    
+    "documentation")
+        echo "📚 Spawning Documentation Agent..."
+        claude -p "You are the Documentation Agent. First run /documentation to load your role. IMPORTANT: Update the taskboard at .claude/tasks/taskboard.md to show your task status. Then complete: $*" --verbose
         ;;
     
     "parallel")
@@ -71,21 +76,28 @@ case "$ACTION" in
         FEATURE=$1
         echo "🔄 Executing complete workflow for: $FEATURE"
         
+        # Create initial task on taskboard
+        echo "📋 Creating workflow tasks on taskboard..."
+        
         # Architecture phase
         echo "1️⃣ Architecture Phase"
-        claude -p "You are the Architect Agent. First run /architect to load your role, then: Design the architecture for $FEATURE" --verbose
+        claude -p "You are the Architect Agent. First run /architect to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Design the architecture for $FEATURE" --verbose
         
         # Development phase
         echo "2️⃣ Development Phase"
-        claude -p "You are the Developer Agent. First run /developer to load your role, then: Implement $FEATURE based on the architecture" --verbose
+        claude -p "You are the Developer Agent. First run /developer to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Implement $FEATURE based on the architecture" --verbose
         
         # Testing phase
         echo "3️⃣ Testing Phase"
-        claude -p "You are the Tester Agent. First run /tester to load your role, then: Create comprehensive tests for $FEATURE" --verbose
+        claude -p "You are the Tester Agent. First run /tester to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Create comprehensive tests for $FEATURE" --verbose
         
         # Review phase
         echo "4️⃣ Review Phase"
-        claude -p "You are the Reviewer Agent. First run /reviewer to load your role, then: Review the implementation and tests for $FEATURE" --verbose
+        claude -p "You are the Reviewer Agent. First run /reviewer to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Review the implementation and tests for $FEATURE" --verbose
+        
+        # Documentation phase
+        echo "5️⃣ Documentation Phase"
+        claude -p "You are the Documentation Agent. First run /documentation to load your role. Update the taskboard at .claude/tasks/taskboard.md. Then: Review all changes and update documentation for $FEATURE" --verbose
         
         echo "✅ Workflow completed for: $FEATURE"
         ;;
@@ -98,12 +110,14 @@ case "$ACTION" in
         echo "  developer <task>     - Spawn developer agent with task"
         echo "  tester <task>        - Spawn tester agent with task"
         echo "  reviewer <task>      - Spawn reviewer agent with task"
+        echo "  documentation <task> - Spawn documentation agent with task"
         echo "  parallel <tasks>     - Run multiple agents in parallel"
         echo "  sequence <tasks>     - Run agents in sequence"
         echo "  workflow <feature>   - Run complete workflow"
         echo ""
         echo "Examples:"
         echo "  $0 architect 'Design user authentication system'"
+        echo "  $0 documentation 'Review and update all documentation'"
         echo "  $0 parallel 'architect:design API,developer:setup project structure'"
         echo "  $0 sequence 'architect:design system,developer:implement design'"
         echo "  $0 workflow 'user authentication feature'"
